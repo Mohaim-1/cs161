@@ -1,10 +1,21 @@
 # Katherine Fournier
-# CS 161, Week 1, Problem 1
+# CS 161, Week 1
 
-def main():
+
+# Problem 1
+
+pet_type = "dog"
+pet_name = "Duke"
+print(f"I have a {pet_type} and their name is {pet_name}.")
+
+
+# Problem 2
+
+def problem2():
     print("Enter your first name: ", end="")
     name = input()
 
+    # These input values must be valid numbers since we'll do math with them later
     age = prompt_int("Enter your current age: ")
     yearly_savings = prompt_int("Enter your yearly savings: ")
 
@@ -13,6 +24,7 @@ def main():
            f"If you save ${yearly_savings} each year, in 5 years you will have saved ${yearly_savings*5}.\n"
            f"Your average monthly savings is ${yearly_savings/12:.2f}."))
 
+# Repeats prompt until the user enters an integer
 def prompt_int(prompt) -> int:
     number = None
     while number == None:
@@ -23,4 +35,7 @@ def prompt_int(prompt) -> int:
             print("Please enter a whole number.")
     return number
 
-main()
+problem2()
+
+
+# Problem 3
