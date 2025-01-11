@@ -33,7 +33,6 @@ def problem3():
 
     today = datetime.today()
     this_month = datetime(year=today.year, month=today.month, day=1)
-
     # Determine next month, accounting for current month being December
     if today.month < 12:
         next_month = datetime(year=today.year, month=today.month+1, day=1)
