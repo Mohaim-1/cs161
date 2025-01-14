@@ -13,7 +13,7 @@ def part_1():
         x = 18
         print(x, bin(x), hex(x))
     except TypeError:
-        sys.exit("x must be an integer.")
+        sys.exit("x must be an integer")
 
     # Problem 3
     y = 0b1011
@@ -34,7 +34,7 @@ def compression():
 
     total_compressed_size = dictionary_size + compressed_text_size
     if original_size < 1 or total_compressed_size < 1:
-        sys.exit("original size and compressed size must be positive.")
+        sys.exit("original size and compressed size must be positive")
     compression_amount = f"{1 - (total_compressed_size / original_size):.2%}"
 
     print((f"\n"
@@ -45,5 +45,37 @@ def compression():
            f"         Compression: {compression_amount}"))
 
 
+def print_twos_complement():
+    """Takes an integer as input and prints its two's complement."""
+
+    # Repeats a prompt until the user enters a valid integer
+    number = None
+    while not valid_int(number):
+        print("Enter an integer: ", end='')
+        try:
+            number = int(input())
+            if not valid_int(number):
+                raise ValueError
+        except ValueError:
+            print("Must be between -127 and 127")
+        except EOFError:
+            sys.exit("Bye!")
+
+    if number >= 0:
+        twos_complement = bin(number)
+    else:
+        # -127 <= number <= -1, so 0 <= (number + 2**8) <= 127
+        twos_complement = bin(number + 2**8)
+
+    # Remove "0b" prefix and always display all 8 bits
+    print(f"{twos_complement[2:]:0>8s}")
+
+
+def valid_int(x) -> bool:
+    """Return whether a variable is an integer between -127 and 127."""
+    return isinstance(x, int) and -127 <= x <= 127
+
+
 part_1()
 compression()
+print_twos_complement()
