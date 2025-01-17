@@ -42,7 +42,7 @@ def compression():
            f"     Dictionary size: {dictionary_size} characters\n"
            f"               Total: {total_compressed_size} characters\n"
            f"  Original text size: {original_size} characters\n"
-           f"         Compression: {compression_amount}"))
+           f"         Compression: {compression_amount}\n"))
 
 
 def print_twos_complement():
@@ -57,14 +57,14 @@ def print_twos_complement():
             if not valid_int(number):
                 raise ValueError
         except ValueError:
-            print("Must be between -127 and 127")
+            print("Must be between -128 and 127")
         except EOFError:
             sys.exit("Bye!")
 
     if number >= 0:
         twos_complement = bin(number)
     else:
-        # -127 <= number <= -1, so 0 <= (number + 2**8) <= 127
+        # -128 <= number <= -1, so 0 <= (number + 2**8) <= 127
         twos_complement = bin(number + 2**8)
 
     # Remove "0b" prefix and always display all 8 bits
@@ -72,8 +72,8 @@ def print_twos_complement():
 
 
 def valid_int(x) -> bool:
-    """Return whether a variable is an integer between -127 and 127."""
-    return isinstance(x, int) and -127 <= x <= 127
+    """Return whether a variable is an integer between -128 and 127."""
+    return isinstance(x, int) and -128 <= x <= 127
 
 
 part_1()
