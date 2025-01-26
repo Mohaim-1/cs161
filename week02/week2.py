@@ -9,8 +9,8 @@ def part_1():
     # Problems 1 and 2
     # bin() and hex() take an integer.
     # If x is the wrong data type (such as a float), we get a TypeError.
+    x = 18
     try:
-        x = 18
         print(x, bin(x), hex(x))
     except TypeError:
         sys.exit("x must be an integer")
