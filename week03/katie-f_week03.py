@@ -2,9 +2,9 @@
 # CS 161 Winter 2025
 # Week 3 Assignment
 
-import csv
 import sys
 import urllib.request
+import urllib.error
 from datetime import date, timedelta
 from math import floor
 
@@ -33,8 +33,8 @@ def probs_1_2_3_extra_credit_1():
     data_table_url = 'https://github.com/Mohaim-1/cs161/raw/refs/heads/main/week03/ssa_life_expectancy.csv'
     try:
         # The file arrives as bytes rather than as a string, so it must be decoded.
-        life_expectancy_csv = (urllib.request.urlopen(data_table_url).read().decode('utf-8').split())
-    except URLError:
+        life_expectancy_csv = urllib.request.urlopen(data_table_url).read().decode('utf-8').split()
+    except urllib.error.URLError:
         sys.exit("Error retrieving ssa_life_expectancy.csv via HTTP.")
 
     header = life_expectancy_csv[0]
@@ -46,9 +46,11 @@ def probs_1_2_3_extra_credit_1():
     if user_age < min_age or user_age > max_age:
         sys.exit("\nLife expectancy data is only available for people that are between "\
                  + f"{min_age} and {max_age} years old.")
-    # The first row was the header, so trim that off. Also the data is sorted, starting at 0, so
+    # The first row was the header, so trim that off. Also, the data is sorted, starting at 0, so
     # the row number is now the same as the age column.
     data = life_expectancy_csv[1:][user_age].split(',')
+    if data[0] != str(user_age):
+        sys.exit("Data is not sorted correctly.")
     # Column 0 = age, column 1 = male, and column 2 = female.
     life_expectancy = {'female': float(data[2]), 'male': float(data[1])}
 
