@@ -117,7 +117,7 @@ def input_int(prompt) -> int:
     while an_int is None:
         try:
             an_int = int(input(prompt))
-        except TypeError:
+        except ValueError:
             print("Please enter an integer.")
     return an_int
 
@@ -127,7 +127,7 @@ def input_float(prompt) -> float:
     while a_float is None:
         try:
             a_float = float(input(prompt))
-        except TypeError:
+        except ValueError:
             print("Please enter a number.")
     return a_float
 
