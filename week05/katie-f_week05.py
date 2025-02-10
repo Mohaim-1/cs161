@@ -77,8 +77,12 @@ def problems_1_2_3():
 
     # Problem 3
 
-    age = 12
-    print(f'Admission to the pool will cost ${pool_admission(age)} for a {age}-year-old.') 
+    age = 18
+    if age in [11, 18] or (age >= 80 and age < 90):
+        article = 'an'
+    else:
+        article = 'a'
+    print(f'Admission to the pool will cost ${pool_admission(age)} for {article} {age}-year-old.') 
 
 
 def pool_admission(age: int) -> int:
