@@ -33,6 +33,8 @@ def probs_1_2_3_4():
         if char in remaining_vowels:
             unique_vowels += 1
             remaining_vowels.remove(char)
+            if len(remaining_vowels) == 0:
+                break
     print((f"{string} has {unique_vowels} different vowel{'s' if unique_vowels != 1 else ''}\n"))
 
     # Problem 3
@@ -126,19 +128,19 @@ def pretty_table(data, column_labels):
         print()
 
 
-def benchmark_iter_vs_recurs():
+def benchmark_iter_vs_recurs(more_tests=False):
     """Measures the execution times of an iterative and a recursive approach to
     calculating a factorial and prints the results in a table.
     """
 
-    test_values = [3, 10, 25,
-                   # 40, 60, 80, 100
-                   ]
+    test_numbers = [3, 10, 25]
+    if more_tests:
+        test_numbers += [40, 60, 80, 100]
     results = []
     # Suppress the tested functions' printing
     sys.stdout = open(os.devnull, 'w')
 
-    for val in test_values:
+    for num in test_numbers:
 
         # Repeat the test for more consistent results
         iter_times = []
@@ -147,33 +149,31 @@ def benchmark_iter_vs_recurs():
 
             # Time the iterative approach
             start = perf_counter_ns()
-            factorial_iter(val)
+            factorial_iter(num)
             stop = perf_counter_ns()
             iter_times += [stop - start]
 
             # Time the recursive approach
             start = perf_counter_ns()
-            factorial_recurs(val)
+            factorial_recurs(num)
             stop = perf_counter_ns()
             recurs_times += [stop - start]
 
-        iter_avg_time = int(sum(iter_times)/len(iter_times))
-        recurs_avg_time = int(sum(recurs_times)/len(iter_times))
-        results += [[val,
-                     iter_avg_time,
-                     recurs_avg_time,
-                     # int(iter_avg_time / val),
-                     # int(recurs_avg_time / val)
-                     ]]
+        iter_avg_time = int(sum(iter_times) / len(iter_times))
+        recurs_avg_time = int(sum(recurs_times) / len(iter_times))
+        results += [[num, iter_avg_time, recurs_avg_time]]
+        if more_tests:
+            results[-1] += [int(iter_avg_time / num),
+                            int(recurs_avg_time / num)]
 
     # Re-enable printing
     sys.stdout = sys.__stdout__
 
-    column_names = ['Input', 'Iterative', 'Recursive',
-                    #'Iter/n', 'Recurs/n'
-                    ]
+    column_names = ['Input', 'Iterative', 'Recursive']
+    if more_tests:
+        column_names += ['Iter/n', 'Recurs/n']
     pretty_table(results, column_names)
-    # Tested with larger integers along with data about time div. by integer (shown above, commented out).
+    # Also tested with larger integers along with data about times div. by the integer (shown above).
     # It appears that the recursive approach is slightly faster for small integers and slower for
     # larger integers. The relative difference stabilizes as the integer increases, and it settles
     # on the recursive approach being ~20% slower than the iterative approach. Both methods are O(n).
@@ -183,6 +183,6 @@ probs_1_2_3_4()
 print()
 
 # Problem 5
-benchmark_iter_vs_recurs()
+benchmark_iter_vs_recurs(more_tests=False)
 
 
