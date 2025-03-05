@@ -41,9 +41,8 @@ class Student:
         else:
             grade_str = self.grade
 
-        return (f"Name: {self.first_name}\n"
-                f"Age: {self.age}\n"
-                f"Grade: {grade_str}")
+        attributes = {'Name':self.first_name, 'Age':self.age, 'Grade':grade_str}
+        return '\n'.join([f"{key}: {attributes[key]}" for key in attributes.keys()])
 
 
 class Staff:
@@ -57,16 +56,14 @@ class Staff:
     """
 
     def __init__(self, first_name: str, department: str, role: str, salary: Union[int, float]):
-        self.name = first_name
+        self.first_name = first_name
         self.department = department
         self.role = role
         self.salary = salary
 
     def __repr__(self):
-        return (f"Name: {self.name}\n"
-                f"Department: {self.department}\n"
-                f"Role: {self.role}\n"
-                f"Salary: ${self.salary:n}")
+        attributes = {'Name':self.first_name, 'Role':self.role, 'Department':self.department}
+        return '\n'.join([f"{key}: {attributes[key]}" for key in attributes])
 
 
 class Teacher(Staff):
@@ -85,7 +82,8 @@ class Teacher(Staff):
         self.age = age
 
     def __repr__(self):
-        return super().__repr__() + f"\nAge: {self.age}"
+        attributes = {'Name':self.first_name, 'Age':self.age, 'Role':self.role, 'Department':self.department}
+        return '\n'.join([f"{key}: {attributes[key]}" for key in attributes.keys()])
 
 
 class Square:
@@ -103,7 +101,7 @@ class Square:
         return self.side_length * 4
 
 
-# Enables the script to be used as an import
+# Will not execute if the script is used as a library
 if __name__ == '__main__':
 
     # Problem 1
@@ -123,8 +121,9 @@ if __name__ == '__main__':
     # Problem 3
     square1 = Square(10)
     square2 = Square(20)
-    for square, name in [(square1, 'square1'), (square2, 'square2')]:
-        print(f"The Area of {name} is: {square.area()}\n"
-              f"The Perimeter of {name} is: {square.perimeter()}")
+    objects = {'square1': square1, 'square2': square2}
+    for name in objects:
+        print(f"The Area of {name} is: {objects[name].area()}\n"
+              f"The Perimeter of {name} is: {objects[name].perimeter()}")
 
 
