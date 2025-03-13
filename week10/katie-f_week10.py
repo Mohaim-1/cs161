@@ -3,7 +3,6 @@
 # Week 10
 
 
-from math import ceil
 from typing import Union
 
 
@@ -31,7 +30,7 @@ class SolarObject:
         The formula used is:
             object's population = ⌈ Earth's population / object's apoapsis ⌉
         """
-        return ceil(6 / self.apoapsis)
+        return round(6 / self.apoapsis)
 
     def __repr__(self):
         return (f"{self.apoapsis}  au from the sun, spins  {self.spin}  "
